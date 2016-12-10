@@ -1,5 +1,6 @@
 from flask import Flask, render_template, flash, request
 from wtforms import Form, TextField, TextAreaField, validators, DateField
+import forepast
 
 # App config.
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -15,7 +16,8 @@ def __main__():
     form = DateForm()
     if request.method == 'POST':
         if form.validate():
-            print(request.form['date'])
+            print(request.form['date'], request.form['city'], request.form['state'])
+            print(forepast.get((request.form['date'].translate(str.maketrans(' ', '/'))), request.form['city'], request.form['state']))
     return render_template('index.html', form=form)
 
 @APP.errorhandler(404)
