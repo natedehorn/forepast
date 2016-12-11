@@ -16,8 +16,13 @@ def __main__():
     form = DateForm()
     if request.method == 'POST':
         if form.validate():
-            print(request.form['date'], request.form['city'], request.form['state'])
-            print(forepast.get((request.form['date'].translate(str.maketrans(' ', '/'))), request.form['city'], request.form['state']))
+            if request.form['city'] and request.form['state']:
+                print(request.form['date'], request.form['city'], request.form['state'])
+                print(forepast.get((request.form['date'].translate(str.maketrans(' ', '/'))), request.form['city'], request.form['state']))
+            if request.form['zipcode']:
+                print(request.form['date'], request.form['zipcode'])
+                city, state = forepast.ziptocity(request.form['zipcode'])
+                print(forepast.get(request.form['date'], city, state))
     return render_template('index.html', form=form)
 
 @APP.errorhandler(404)

@@ -7,11 +7,11 @@ def get(date, state, city):
 def ziptocity(zipcode):
 	location = requests.get("http://api.wunderground.com/api/da56b35422df63cd/geolookup/q/%s.json" % (zipcode)).json().get('location')
 	state = location.get('state')
-	city = location.get('city').replace(" ", "_")
-	return(city, state)
+	city = location.get('city')
+	return city, state
 
 def cordstocity(latitude, longitude):
 	location = requests.get("http://api.wunderground.com/api/da56b35422df63cd/geolookup/q/%s,%s.json" % (latitude,longitude)).json().get('location')
 	state = location.get('state')
-	city = location.get('city').replace(" ", "_")
-	return (city, state)
+	city = location.get('city')
+	return city, state

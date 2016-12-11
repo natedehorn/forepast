@@ -22,27 +22,30 @@
 	<body style="text-align: center;">
 		<h1>ForePast</h1>
 		<h4>Get forecasts from the past!</h4>
-		<h5>Built by Nate DeHorn</h5><br>
+		<h5>Built by Nate DeHorn</h5>
 		<form id="eventForm" method="post" class="form-horizontal">
 			<div id="container" class="container">
+				<h4>Enter a city &amp; state or a zipcode along with a date</h4>
 				<div class="input-group">
 					<span class="input-group-addon">State</span>
 					<input type="text" class="form-control" name="state" placeholder="CA">
-				</div><br>
-				<div class="input-group">
 					<span class="input-group-addon">City</span>
 					<input type="text" class="form-control" name="city" placeholder="San Francisco">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">Zip Code</span>
+					<input type="text" class="form-control" name="zipcode" placeholder="94107">
 				</div><br>
 				<div class="input-group">
 					<span class="input-group-addon">Date</span>
-					<input type='text' class="form-control" name="date" id='datetimepicker'>
+					<input type='text' class="form-control" name="date" id='datetimepicker' placeholder="1901/01/01">
 					<script type="text/javascript">
 						$(function(){$('#datetimepicker').datetimepicker({
 							viewMode:"years",
 							format: "YYYY/MM/DD"
 						})});
 					</script>
-				</div>
+				</div><br>
 				<button type="submit" class="btn btn-info">Get date</button>
 			</div>
 		</form>
