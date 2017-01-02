@@ -1,6 +1,7 @@
 from flask import Flask, render_template, flash, request
 from wtforms import Form, TextField, TextAreaField, validators, DateField
 import forepast
+import json
 
 # App config.
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -16,13 +17,22 @@ def __main__():
     form = DateForm()
     if request.method == 'POST':
         if form.validate():
-            if request.form['city'] and request.form['state']:
-                print(request.form['date'], request.form['city'], request.form['state'])
-                print(forepast.get((request.form['date'].translate(str.maketrans(' ', '/'))), request.form['city'], request.form['state']))
-            if request.form['zipcode']:
-                print(request.form['date'], request.form['zipcode'])
-                city, state = forepast.ziptocity(request.form['zipcode'])
-                print(forepast.get(request.form['date'], city, state))
+            if request.form['date']:
+                date = request.form['date']
+                if request.form['city'] and request.form['state']:
+                    city = request.form['city']
+                    state = request.form['state']
+                    print(date, city, state)
+                    full = forepast.get(date, city, state)
+                    print(full)
+                    summary = full.get('history').get('observations')
+                    '''[d['value'] for d in summary]'''
+                    return render_template('index.html', form=form, data=summary)
+                if request.form['zipcode']:
+                    zipcode = request.form['zipcode']
+                    print(date, zipcode)
+                    city, state = forepast.ziptocity(zipcode)
+                    print(forepast.get(date, city, state))
     return render_template('index.html', form=form)
 
 @app.errorhandler(404)

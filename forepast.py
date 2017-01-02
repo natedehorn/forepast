@@ -1,8 +1,7 @@
 import requests
 
 def get(date, state, city):
-	r = requests.get("http://api.wunderground.com/api/da56b35422df63cd/history_%s/q/%s/%s.json" % (date,state,city))
-	return r.json()
+	return (requests.get("http://api.wunderground.com/api/da56b35422df63cd/history_%s/q/%s/%s.json" % (date,state,city))).json()
 
 def ziptocity(zipcode):
 	location = requests.get("http://api.wunderground.com/api/da56b35422df63cd/geolookup/q/%s.json" % (zipcode)).json().get('location')
